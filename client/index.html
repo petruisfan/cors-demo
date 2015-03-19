@@ -1,39 +1,46 @@
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cors Demo</title>
+</head>
 <body>
+<h1>Simple client-server cors demo application</h1>
 
-<h1>Hello, world!</h1>
-<button onclick="makeCors()">Cors request</button>
+<h3>VanillaJS</h3>
+
+<p>Click <span><button onclick="makeCors()">Button</button></span> for CORS with vanillaJS</p>
+
+<div>Response: <span id="xhr-response"></span></div>
 <script>
+    var makeCors = function() {
+        console.log("Trying cors request...");
 
-var makeCors = function() {
-    console.log("Trying cors request...");
+        var invocation = new XMLHttpRequest();
+        var url = 'http://cors-server.com/';
 
-    var invocation = new XMLHttpRequest();
-    var url = 'http://cors-server.com/';
-       
-    function callOtherDomain() {
-        if(invocation) {    
-            invocation.open('GET', url, true);
-            invocation.onreadystatechange = handler;
-            invocation.send(); 
+        function callOtherDomain() {
+            if(invocation) {
+                invocation.open('GET', url, true);
+                invocation.onreadystatechange = handler;
+                invocation.send();
+            }
         }
+
+        var handler = function() {
+            if (invocation.readyState == 4) {
+                if (invocation.status == 200) {
+                    var response = invocation.response;
+                    document.getElementById("xhr-response").innerText = response;
+                }
+                else {
+                    alert("Invocation Errors Occured");
+                }
+            }
+        };
+        callOtherDomain();
     }
-
-    var handler = function() {
-        if (invocation.readyState == 4) {
-            if (invocation.status == 200) {
-                var response = invocation.responseXML;
-                console.log(response);
-            }
-            else {
-                alert("Invocation Errors Occured");
-            }
-        }
-    };
-
-    callOtherDomain();
-}
-
 </script>
+
 </body>
 </html>
