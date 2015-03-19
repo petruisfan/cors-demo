@@ -11,3 +11,5 @@ $> npm install
 $> node server.js
 ```
 - open _http://cors-client.com_ in browser.
+
+The only catch is the response from the server must contain "Access-Control-Allow-Origin: http://cors-client.com" header.
