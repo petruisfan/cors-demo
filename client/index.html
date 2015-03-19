@@ -1,0 +1,39 @@
+<html>
+<body>
+
+<h1>Hello, world!</h1>
+<button onclick="makeCors()">Cors request</button>
+<script>
+
+var makeCors = function() {
+    console.log("Trying cors request...");
+
+    var invocation = new XMLHttpRequest();
+    var url = 'http://cors-server.com/';
+       
+    function callOtherDomain() {
+        if(invocation) {    
+            invocation.open('GET', url, true);
+            invocation.onreadystatechange = handler;
+            invocation.send(); 
+        }
+    }
+
+    var handler = function() {
+        if (invocation.readyState == 4) {
+            if (invocation.status == 200) {
+                var response = invocation.responseXML;
+                console.log(response);
+            }
+            else {
+                alert("Invocation Errors Occured");
+            }
+        }
+    };
+
+    callOtherDomain();
+}
+
+</script>
+</body>
+</html>
